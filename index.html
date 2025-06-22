@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Chill Blog</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+            min-height: 100vh;
+            color: #e0e6ed;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 150, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 255, 0, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 0;
+        }
+        
+        .blog-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: neonGlow 3s ease-in-out infinite alternate, gradientShift 8s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 0, 110, 0.5);
+            margin-bottom: 20px;
+        }
+        
+        .blog-subtitle {
+            font-size: 1.2rem;
+            color: #b8c5d6;
+            font-weight: 300;
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+        
+        @keyframes neonGlow {
+            0% { filter: brightness(1) saturate(1); }
+            100% { filter: brightness(1.2) saturate(1.5); }
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .blog-post {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blog-post::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .blog-post:hover::before {
+            left: 100%;
+        }
+        
+        .blog-post:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 0, 150, 0.3);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(255, 0, 150, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+        
+        .post-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .post-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 2px,
+                rgba(255, 255, 255, 0.05) 2px,
+                rgba(255, 255, 255, 0.05) 4px
+            );
+            animation: shimmer 3s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+        
+        .editable {
+            outline: none;
+            transition: all 0.3s ease;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            background: transparent;
+        }
+        
+        .editable:focus {
+            border-color: #06ffa5;
+            background: rgba(6, 255, 165, 0.05);
+            box-shadow: 0 0 20px rgba(6, 255, 165, 0.3);
+        }
+        
+        .post-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #06ffa5;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(6, 255, 165, 0.5);
+        }
+        
+        .post-meta {
+            color: #8892b0;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .post-date {
+            padding: 5px 15px;
+            background: rgba(255, 0, 150, 0.1);
+            border: 1px solid rgba(255, 0, 150, 0.3);
+            border-radius: 20px;
+            color: #ff006e;
+        }
+        
+        .post-author {
+            padding: 5px 15px;
+            background: rgba(51, 56, 236, 0.1);
+            border: 1px solid rgba(51, 56, 236, 0.3);
+            border-radius: 20px;
+            color: #3338ec;
+        }
+        
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccd6f6;
+            margin-bottom: 30px;
+        }
+        
+        .post-content p {
+            margin-bottom: 20px;
+        }
+        
+        .add-post-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ff006e, #8338ec);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255, 0, 110, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .add-post-btn:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 6px 30px rgba(255, 0, 110, 0.6);
+        }
+        
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #06ffa5;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+        
+        .tags {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            padding: 5px 12px;
+            background: rgba(58, 134, 255, 0.1);
+            border: 1px solid rgba(58, 134, 255, 0.3);
+            border-radius: 15px;
+            color: #3a86ff;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tag:hover {
+            background: rgba(58, 134, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .blog-title {
+                font-size: 2.5rem;
+            }
+            
+            .blog-post {
+                padding: 25px;
+            }
+            
+            .post-title {
+                font-size: 2rem;
+            }
+            
+            .post-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles" id="particles"></div>
+    
+    <div class="container">
+        <header>
+            <h1 class="blog-title editable" contenteditable="true">NEON BLOG</h1>
+            <p class="blog-subtitle editable" contenteditable="true">Where thoughts glow in digital space</p>
+        </header>
+        
+        <main id="blog-posts">
+            <article class="blog-post">
+                <div class="post-image">🌆</div>
+                <h2 class="post-title editable" contenteditable="true">Welcome to the Neon Future</h2>
+                <div class="post-meta">
+                    <span class="post-date editable" contenteditable="true">June 21, 2025</span>
+                    <span class="post-author editable" contenteditable="true">Digital Wanderer</span>
+                </div>
+                <div class="post-content editable" contenteditable="true">
+                    <p>Step into a world where technology meets artistry, where every pixel pulses with electric energy. This is more than just a blog – it's a digital canvas painted with neon dreams and cyberpunk aspirations.</p>
+                    <p>In this space, we explore the intersection of human creativity and technological innovation. Every post is a journey through the luminous highways of digital consciousness, where ideas take form in glowing text and vibrant imagery.</p>
+                    <p>Welcome to your new creative sanctuary. Make it yours – every word, every image, every thought can be edited and transformed. The future is interactive, and it starts here.</p>
+                </div>
+                <div class="tags">
+                    <span class="tag editable" contenteditable="true">#cyberpunk</span>
+                    <span class="tag editable" contenteditable="true">#digital-art</span>
+                    <span class="tag editable" contenteditable="true">#future</span>
+                </div>
+            </article>
+            
+            <article class="blog-post">
+                <div class="post-image">🚀</div>
+                <h2 class="post-title editable" contenteditable="true">Launching Into Tomorrow</h2>
+                <div class="post-meta">
+                    <span class="post-date editable" contenteditable="true">June 20, 2025</span>
+                    <span class="post-author editable" contenteditable="true">Code Architect</span>
+                </div>
+                <div class="post-content editable" contenteditable="true">
+                    <p>Every great journey begins with a single line of code, a spark of inspiration that ignites into something magnificent. Today we launch not just a blog, but a platform for infinite possibilities.</p>
+                    <p>The neon glow that surrounds these words represents more than aesthetic choice – it symbolizes the electric current of creativity that flows through every digital creation. We are the architects of tomorrow's web.</p>
+                </div>
+                <div class="tags">
+                    <span class="tag editable" contenteditable="true">#launch</span>
+                    <span class="tag editable" contenteditable="true">#creativity</span>
+                    <span class="tag editable" contenteditable="true">#innovation</span>
+                </div>
+            </article>
+        </main>
+    </div>
+    
+    <button class="add-post-btn" onclick="addNewPost()">+</button>
+    
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                
+                // Random colors for particles
+                const colors = ['#ff006e', '#8338ec', '#3a86ff', '#06ffa5'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Add new blog post
+        function addNewPost() {
+            const blogPosts = document.getElementById('blog-posts');
+            const newPost = document.createElement('article');
+            newPost.className = 'blog-post';
+            
+            const emojis = ['🌟', '💫', '🔥', '⚡', '🌈', '🎨', '🎵', '🎭', '🎪', '🎯'];
+            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            newPost.innerHTML = `
+                <div class="post-image">${randomEmoji}</div>
+                <h2 class="post-title editable" contenteditable="true">New Neon Thought</h2>
+                <div class="post-meta">
+                    <span class="post-date editable" contenteditable="true">${new Date().toLocaleDateString()}</span>
+                    <span class="post-author editable" contenteditable="true">Anonymous Creator</span>
+                </div>
+                <div class="post-content editable" contenteditable="true">
+                    <p>Your thoughts begin here. Click to edit and let your creativity flow through the neon-lit corridors of digital expression...</p>
+                </div>
+                <div class="tags">
+                    <span class="tag editable" contenteditable="true">#new</span>
+                    <span class="tag editable" contenteditable="true">#thoughts</span>
+                </div>
+            `;
+            
+            blogPosts.appendChild(newPost);
+            
+            // Smooth scroll to new post
+            newPost.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Focus on the title for immediate editing
+            setTimeout(() => {
+                const titleElement = newPost.querySelector('.post-title');
+                titleElement.focus();
+                
+                // Select all text in the title
+                const range = document.createRange();
+                range.selectNodeContents(titleElement);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }, 500);
+        }
+        
+        // Save content to memory (simulating persistence)
+        let blogData = {};
+        
+        function saveContent() {
+            const editableElements = document.querySelectorAll('.editable');
+            editableElements.forEach((element, index) => {
+                blogData[`element_${index}`] = element.innerHTML;
+            });
+        }
+        
+        function loadContent() {
+            const editableElements = document.querySelectorAll('.editable');
+            editableElements.forEach((element, index) => {
+                if (blogData[`element_${index}`]) {
+                    element.innerHTML = blogData[`element_${index}`];
+                }
+            });
+        }
+        
+        // Auto-save functionality
+        function setupAutoSave() {
+            const editableElements = document.querySelectorAll('.editable');
+            editableElements.forEach(element => {
+                element.addEventListener('input', () => {
+                    clearTimeout(window.saveTimeout);
+                    window.saveTimeout = setTimeout(saveContent, 1000);
+                });
+                
+                element.addEventListener('blur', saveContent);
+            });
+        }
+        
+        // Enhanced typing effects
+        function addTypingEffects() {
+            const editableElements = document.querySelectorAll('.editable');
+            editableElements.forEach(element => {
+                element.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && element.classList.contains('post-title')) {
+                        e.preventDefault();
+                        const nextElement = element.parentElement.querySelector('.post-content');
+                        if (nextElement) {
+                            nextElement.focus();
+                        }
+                    }
+                });
+            });
+        }
+        
+        // Add glitch effect on focus
+        function addGlitchEffect() {
+            const editableElements = document.querySelectorAll('.editable');
+            editableElements.forEach(element => {
+                element.addEventListener('focus', () => {
+                    element.style.textShadow = '0 0 10px currentColor';
+                });
+                
+                element.addEventListener('blur', () => {
+                    element.style.textShadow = '';
+                });
+            });
+        }
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            setupAutoSave();
+            addTypingEffects();
+            addGlitchEffect();
+            loadContent();
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'n') {
+                e.preventDefault();
+                addNewPost();
+            }
+            
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                saveContent();
+                
+                // Show save indicator
+                const indicator = document.createElement('div');
+                indicator.textContent = 'Saved!';
+                indicator.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: rgba(6, 255, 165, 0.2);
+                    color: #06ffa5;
+                    padding: 10px 20px;
+                    border-radius: 20px;
+                    border: 1px solid rgba(6, 255, 165, 0.3);
+                    z-index: 1000;
+                    animation: fadeInOut 2s ease-in-out;
+                `;
+                
+                document.body.appendChild(indicator);
+                setTimeout(() => indicator.remove(), 2000);
+            }
+        });
+        
+        // Add CSS animation for save indicator
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInOut {
+                0% { opacity: 0; transform: translateY(-10px); }
+                20%, 80% { opacity: 1; transform: translateY(0); }
+                100% { opacity: 0; transform: translateY(-10px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
