@@ -84,6 +84,151 @@
             100% { background-position: 0% 50%; }
         }
         
+        .admin-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .admin-status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-status.logged-out {
+            background: rgba(255, 0, 110, 0.1);
+            border: 1px solid rgba(255, 0, 110, 0.3);
+            color: #ff006e;
+        }
+        
+        .admin-status.logged-in {
+            background: rgba(6, 255, 165, 0.1);
+            border: 1px solid rgba(6, 255, 165, 0.3);
+            color: #06ffa5;
+        }
+        
+        .admin-btn {
+            padding: 8px 16px;
+            background: linear-gradient(45deg, #ff006e, #8338ec);
+            border: none;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(255, 0, 110, 0.4);
+        }
+        
+        .login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .login-modal.show {
+            display: flex;
+        }
+        
+        .login-form {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            width: 400px;
+            max-width: 90vw;
+            text-align: center;
+        }
+        
+        .login-form h2 {
+            font-family: 'Orbitron', monospace;
+            color: #06ffa5;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #b8c5d6;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #e0e6ed;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #06ffa5;
+            box-shadow: 0 0 20px rgba(6, 255, 165, 0.3);
+            background: rgba(6, 255, 165, 0.05);
+        }
+        
+        .form-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #06ffa5, #3a86ff);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #b8c5d6;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
         .blog-post {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
@@ -168,12 +313,26 @@
             border-radius: 8px;
             border: 2px solid transparent;
             background: transparent;
+            position: relative;
         }
         
-        .editable:focus {
+        .editable.edit-mode {
             border-color: #06ffa5;
             background: rgba(6, 255, 165, 0.05);
             box-shadow: 0 0 20px rgba(6, 255, 165, 0.3);
+        }
+        
+        .editable.edit-mode::after {
+            content: '✏️ EDITING';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #06ffa5;
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
         }
         
         .post-title {
@@ -221,6 +380,37 @@
             margin-bottom: 20px;
         }
         
+        .post-actions {
+            display: none;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .post-actions.show {
+            display: flex;
+        }
+        
+        .action-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-edit {
+            background: rgba(6, 255, 165, 0.2);
+            color: #06ffa5;
+            border: 1px solid rgba(6, 255, 165, 0.3);
+        }
+        
+        .btn-delete {
+            background: rgba(255, 0, 110, 0.2);
+            color: #ff006e;
+            border: 1px solid rgba(255, 0, 110, 0.3);
+        }
+        
         .add-post-btn {
             position: fixed;
             bottom: 30px;
@@ -236,6 +426,11 @@
             box-shadow: 0 4px 20px rgba(255, 0, 110, 0.4);
             transition: all 0.3s ease;
             z-index: 1000;
+            display: none;
+        }
+        
+        .add-post-btn.show {
+            display: block;
         }
         
         .add-post-btn:hover {
@@ -291,6 +486,32 @@
             transform: translateY(-2px);
         }
         
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(6, 255, 165, 0.2);
+            color: #06ffa5;
+            padding: 15px 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(6, 255, 165, 0.3);
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .notification.error {
+            background: rgba(255, 0, 110, 0.2);
+            color: #ff006e;
+            border-color: rgba(255, 0, 110, 0.3);
+        }
+        
         @media (max-width: 768px) {
             .blog-title {
                 font-size: 2.5rem;
@@ -309,53 +530,94 @@
                 align-items: flex-start;
                 gap: 10px;
             }
+            
+            .admin-panel {
+                position: relative;
+                top: auto;
+                right: auto;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+            
+            .login-form {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="floating-particles" id="particles"></div>
     
+    <!-- Admin Panel -->
+    <div class="admin-panel">
+        <div class="admin-status logged-out" id="adminStatus">👤 Visitor Mode</div>
+        <button class="admin-btn" id="adminBtn" onclick="showLogin()">Admin Login</button>
+    </div>
+    
+    <!-- Login Modal -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-form">
+            <h2>🔐 Admin Access</h2>
+            <div class="form-group">
+                <label for="adminPassword">Password:</label>
+                <input type="password" id="adminPassword" placeholder="Enter admin password">
+            </div>
+            <div class="form-buttons">
+                <button class="btn btn-primary" onclick="login()">Login</button>
+                <button class="btn btn-secondary" onclick="hideLogin()">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
     <div class="container">
         <header>
-            <h1 class="blog-title editable" contenteditable="true">NEON BLOG</h1>
-            <p class="blog-subtitle editable" contenteditable="true">Where thoughts glow in digital space</p>
+            <h1 class="blog-title">NEON BLOG</h1>
+            <p class="blog-subtitle">Where thoughts glow in digital space</p>
         </header>
         
         <main id="blog-posts">
-            <article class="blog-post">
+            <article class="blog-post" data-post-id="1">
                 <div class="post-image">🌆</div>
-                <h2 class="post-title editable" contenteditable="true">Welcome to the Neon Future</h2>
+                <h2 class="post-title editable" data-field="title">Welcome to the Neon Future</h2>
                 <div class="post-meta">
-                    <span class="post-date editable" contenteditable="true">June 21, 2025</span>
-                    <span class="post-author editable" contenteditable="true">Digital Wanderer</span>
+                    <span class="post-date editable" data-field="date">June 21, 2025</span>
+                    <span class="post-author editable" data-field="author">Digital Wanderer</span>
                 </div>
-                <div class="post-content editable" contenteditable="true">
+                <div class="post-content editable" data-field="content">
                     <p>Step into a world where technology meets artistry, where every pixel pulses with electric energy. This is more than just a blog – it's a digital canvas painted with neon dreams and cyberpunk aspirations.</p>
                     <p>In this space, we explore the intersection of human creativity and technological innovation. Every post is a journey through the luminous highways of digital consciousness, where ideas take form in glowing text and vibrant imagery.</p>
-                    <p>Welcome to your new creative sanctuary. Make it yours – every word, every image, every thought can be edited and transformed. The future is interactive, and it starts here.</p>
+                    <p>Welcome to your new creative sanctuary. As an admin, you can edit every word, every image, every thought. The future is interactive, and it starts here.</p>
                 </div>
                 <div class="tags">
-                    <span class="tag editable" contenteditable="true">#cyberpunk</span>
-                    <span class="tag editable" contenteditable="true">#digital-art</span>
-                    <span class="tag editable" contenteditable="true">#future</span>
+                    <span class="tag editable" data-field="tag">#cyberpunk</span>
+                    <span class="tag editable" data-field="tag">#digital-art</span>
+                    <span class="tag editable" data-field="tag">#future</span>
+                </div>
+                <div class="post-actions">
+                    <button class="action-btn btn-edit" onclick="editPost(this)">✏️ Edit</button>
+                    <button class="action-btn btn-delete" onclick="deletePost(this)">🗑️ Delete</button>
                 </div>
             </article>
             
-            <article class="blog-post">
+            <article class="blog-post" data-post-id="2">
                 <div class="post-image">🚀</div>
-                <h2 class="post-title editable" contenteditable="true">Launching Into Tomorrow</h2>
+                <h2 class="post-title editable" data-field="title">Launching Into Tomorrow</h2>
                 <div class="post-meta">
-                    <span class="post-date editable" contenteditable="true">June 20, 2025</span>
-                    <span class="post-author editable" contenteditable="true">Code Architect</span>
+                    <span class="post-date editable" data-field="date">June 20, 2025</span>
+                    <span class="post-author editable" data-field="author">Code Architect</span>
                 </div>
-                <div class="post-content editable" contenteditable="true">
+                <div class="post-content editable" data-field="content">
                     <p>Every great journey begins with a single line of code, a spark of inspiration that ignites into something magnificent. Today we launch not just a blog, but a platform for infinite possibilities.</p>
                     <p>The neon glow that surrounds these words represents more than aesthetic choice – it symbolizes the electric current of creativity that flows through every digital creation. We are the architects of tomorrow's web.</p>
                 </div>
                 <div class="tags">
-                    <span class="tag editable" contenteditable="true">#launch</span>
-                    <span class="tag editable" contenteditable="true">#creativity</span>
-                    <span class="tag editable" contenteditable="true">#innovation</span>
+                    <span class="tag editable" data-field="tag">#launch</span>
+                    <span class="tag editable" data-field="tag">#creativity</span>
+                    <span class="tag editable" data-field="tag">#innovation</span>
+                </div>
+                <div class="post-actions">
+                    <button class="action-btn btn-edit" onclick="editPost(this)">✏️ Edit</button>
+                    <button class="action-btn btn-delete" onclick="deletePost(this)">🗑️ Delete</button>
                 </div>
             </article>
         </main>
@@ -364,6 +626,249 @@
     <button class="add-post-btn" onclick="addNewPost()">+</button>
     
     <script>
+        // Authentication system
+        let isAdminLoggedIn = false;
+        const adminPassword = 'neonblog2025'; // Change this to your secure password
+        
+        // Blog data storage
+        let blogData = {
+            posts: {},
+            nextId: 3
+        };
+        
+        // Authentication functions
+        function showLogin() {
+            document.getElementById('loginModal').classList.add('show');
+            document.getElementById('adminPassword').focus();
+        }
+        
+        function hideLogin() {
+            document.getElementById('loginModal').classList.remove('show');
+            document.getElementById('adminPassword').value = '';
+        }
+        
+        function login() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === adminPassword) {
+                isAdminLoggedIn = true;
+                updateAdminUI();
+                hideLogin();
+                showNotification('🎉 Admin access granted!', 'success');
+            } else {
+                showNotification('❌ Invalid password', 'error');
+                document.getElementById('adminPassword').value = '';
+            }
+        }
+        
+        function logout() {
+            isAdminLoggedIn = false;
+            exitEditMode();
+            updateAdminUI();
+            showNotification('👋 Logged out successfully', 'success');
+        }
+        
+        function updateAdminUI() {
+            const adminStatus = document.getElementById('adminStatus');
+            const adminBtn = document.getElementById('adminBtn');
+            const addBtn = document.querySelector('.add-post-btn');
+            const postActions = document.querySelectorAll('.post-actions');
+            
+            if (isAdminLoggedIn) {
+                adminStatus.textContent = '👑 Admin Mode';
+                adminStatus.className = 'admin-status logged-in';
+                adminBtn.textContent = 'Logout';
+                adminBtn.onclick = logout;
+                addBtn.classList.add('show');
+                postActions.forEach(action => action.classList.add('show'));
+                enableEditMode();
+            } else {
+                adminStatus.textContent = '👤 Visitor Mode';
+                adminStatus.className = 'admin-status logged-out';
+                adminBtn.textContent = 'Admin Login';
+                adminBtn.onclick = showLogin;
+                addBtn.classList.remove('show');
+                postActions.forEach(action => action.classList.remove('show'));
+                disableEditMode();
+            }
+        }
+        
+        function enableEditMode() {
+            const editableElements = document.querySelectorAll('.editable');
+            editableElements.forEach(element => {
+                element.contentEditable = true;
+                element.addEventListener('focus', onEditFocus);
+                element.addEventListener('blur', onEditBlur);
+                element.addEventListener('input', onEditInput);
+            });
+        }
+        
+        function disableEditMode() {
+            const editableElements = document.querySelectorAll('.editable');
+            editableElements.forEach(element => {
+                element.contentEditable = false;
+                element.removeEventListener('focus', onEditFocus);
+                element.removeEventListener('blur', onEditBlur);
+                element.removeEventListener('input', onEditInput);
+                element.classList.remove('edit-mode');
+            });
+        }
+        
+        function exitEditMode() {
+            const editableElements = document.querySelectorAll('.editable');
+            editableElements.forEach(element => {
+                element.blur();
+                element.classList.remove('edit-mode');
+            });
+        }
+        
+        function onEditFocus(e) {
+            if (isAdminLoggedIn) {
+                e.target.classList.add('edit-mode');
+            }
+        }
+        
+        function onEditBlur(e) {
+            e.target.classList.remove('edit-mode');
+            savePostData(e.target);
+        }
+        
+        function onEditInput(e) {
+            if (!isAdminLoggedIn) {
+                e.preventDefault();
+                return false;
+            }
+        }
+        
+        // Post management functions
+        function editPost(button) {
+            const post = button.closest('.blog-post');
+            const titleElement = post.querySelector('.post-title');
+            titleElement.focus();
+            
+            // Select title text
+            const range = document.createRange();
+            range.selectNodeContents(titleElement);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+        
+        function deletePost(button) {
+            if (confirm('Are you sure you want to delete this post?')) {
+                const post = button.closest('.blog-post');
+                const postId = post.dataset.postId;
+                
+                post.style.transform = 'scale(0.8)';
+                post.style.opacity = '0';
+                
+                setTimeout(() => {
+                    post.remove();
+                    delete blogData.posts[postId];
+                    showNotification('🗑️ Post deleted', 'success');
+                }, 300);
+            }
+        }
+        
+        function addNewPost() {
+            if (!isAdminLoggedIn) {
+                showNotification('🔒 Admin login required', 'error');
+                return;
+            }
+            
+            const blogPosts = document.getElementById('blog-posts');
+            const newPost = document.createElement('article');
+            const postId = blogData.nextId++;
+            
+            newPost.className = 'blog-post';
+            newPost.dataset.postId = postId;
+            
+            const emojis = ['🌟', '💫', '🔥', '⚡', '🌈', '🎨', '🎵', '🎭', '🎪', '🎯'];
+            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            newPost.innerHTML = `
+                <div class="post-image">${randomEmoji}</div>
+                <h2 class="post-title editable" data-field="title">New Neon Thought</h2>
+                <div class="post-meta">
+                    <span class="post-date editable" data-field="date">${new Date().toLocaleDateString()}</span>
+                    <span class="post-author editable" data-field="author">Admin</span>
+                </div>
+                <div class="post-content editable" data-field="content">
+                    <p>Your new post begins here. Start typing to share your neon-lit thoughts with the world...</p>
+                </div>
+                <div class="tags">
+                    <span class="tag editable" data-field="tag">#new</span>
+                    <span class="tag editable" data-field="tag">#thoughts</span>
+                </div>
+                <div class="post-actions show">
+                    <button class="action-btn btn-edit" onclick="editPost(this)">✏️ Edit</button>
+                    <button class="action-btn btn-delete" onclick="deletePost(this)">🗑️ Delete</button>
+                </div>
+            `;
+            
+            blogPosts.appendChild(newPost);
+            
+            // Enable editing for new post
+            const editableElements = newPost.querySelectorAll('.editable');
+            editableElements.forEach(element => {
+                element.contentEditable = true;
+                element.addEventListener('focus', onEditFocus);
+                element.addEventListener('blur', onEditBlur);
+                element.addEventListener('input', onEditInput);
+            });
+            
+            // Smooth scroll and focus
+            newPost.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            setTimeout(() => {
+                const titleElement = newPost.querySelector('.post-title');
+                titleElement.focus();
+                
+                // Select all text in the title
+                const range = document.createRange();
+                range.selectNodeContents(titleElement);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }, 500);
+            
+            showNotification('✨ New post created!', 'success');
+        }
+        
+        function savePostData(element) {
+            if (!isAdminLoggedIn) return;
+            
+            const post = element.closest('.blog-post');
+            const postId = post.dataset.postId;
+            
+            if (!blogData.posts[postId]) {
+                blogData.posts[postId] = {};
+            }
+            
+            const field = element.dataset.field;
+            blogData.posts[postId][field] = element.innerHTML;
+            
+            // Auto-save notification
+            clearTimeout(window.saveTimeout);
+            window.saveTimeout = setTimeout(() => {
+                showNotification('💾 Changes saved', 'success');
+            }, 1000);
+        }
+        
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 100);
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
         // Create floating particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
@@ -385,87 +890,95 @@
             }
         }
         
-        // Add new blog post
-        function addNewPost() {
-            const blogPosts = document.getElementById('blog-posts');
-            const newPost = document.createElement('article');
-            newPost.className = 'blog-post';
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (!isAdminLoggedIn) return;
             
-            const emojis = ['🌟', '💫', '🔥', '⚡', '🌈', '🎨', '🎵', '🎭', '🎪', '🎯'];
-            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+            if (e.ctrlKey && e.key === 'n') {
+                e.preventDefault();
+                addNewPost();
+            }
             
-            newPost.innerHTML = `
-                <div class="post-image">${randomEmoji}</div>
-                <h2 class="post-title editable" contenteditable="true">New Neon Thought</h2>
-                <div class="post-meta">
-                    <span class="post-date editable" contenteditable="true">${new Date().toLocaleDateString()}</span>
-                    <span class="post-author editable" contenteditable="true">Anonymous Creator</span>
-                </div>
-                <div class="post-content editable" contenteditable="true">
-                    <p>Your thoughts begin here. Click to edit and let your creativity flow through the neon-lit corridors of digital expression...</p>
-                </div>
-                <div class="tags">
-                    <span class="tag editable" contenteditable="true">#new</span>
-                    <span class="tag editable" contenteditable="true">#thoughts</span>
-                </div>
-            `;
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                showNotification('💾 All changes saved!', 'success');
+            }
             
-            blogPosts.appendChild(newPost);
+            if (e.key === 'Escape') {
+                exitEditMode();
+            }
+        });
+        
+        // Login modal keyboard support
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('loginModal');
+            if (modal.classList.contains('show')) {
+                if (e.key === 'Enter') {
+                    login();
+                } else if (e.key === 'Escape') {
+                    hideLogin();
+                }
+            }
+        });
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            updateAdminUI();
             
-            // Smooth scroll to new post
-            newPost.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Load saved data if any
+            loadBlogData();
             
-            // Focus on the title for immediate editing
+            // Show welcome message
             setTimeout(() => {
-                const titleElement = newPost.querySelector('.post-title');
-                titleElement.focus();
-                
-                // Select all text in the title
-                const range = document.createRange();
-                range.selectNodeContents(titleElement);
-                const selection = window.getSelection();
-                selection.removeAllRanges();
-                selection.addRange(range);
-            }, 500);
+                if (!isAdminLoggedIn) {
+                    showNotification('👋 Welcome! Login as admin to edit content', 'success');
+                }
+            }, 1000);
+        });
+        
+        // Data persistence functions
+        function saveBlogData() {
+            // In a real application, this would save to a backend
+            // For now, we'll just store in memory
+            console.log('Blog data saved:', blogData);
         }
         
-        // Save content to memory (simulating persistence)
-        let blogData = {};
-        
-        function saveContent() {
-            const editableElements = document.querySelectorAll('.editable');
-            editableElements.forEach((element, index) => {
-                blogData[`element_${index}`] = element.innerHTML;
-            });
-        }
-        
-        function loadContent() {
-            const editableElements = document.querySelectorAll('.editable');
-            editableElements.forEach((element, index) => {
-                if (blogData[`element_${index}`]) {
-                    element.innerHTML = blogData[`element_${index}`];
+        function loadBlogData() {
+            // In a real application, this would load from a backend
+            // For now, we'll initialize with current content
+            const posts = document.querySelectorAll('.blog-post');
+            posts.forEach(post => {
+                const postId = post.dataset.postId;
+                if (!blogData.posts[postId]) {
+                    blogData.posts[postId] = {};
                 }
             });
         }
         
-        // Auto-save functionality
-        function setupAutoSave() {
-            const editableElements = document.querySelectorAll('.editable');
-            editableElements.forEach(element => {
-                element.addEventListener('input', () => {
-                    clearTimeout(window.saveTimeout);
-                    window.saveTimeout = setTimeout(saveContent, 1000);
-                });
-                
-                element.addEventListener('blur', saveContent);
-            });
-        }
+        // Security: Prevent right-click context menu on sensitive areas
+        document.addEventListener('contextmenu', (e) => {
+            if (e.target.classList.contains('admin-panel') || 
+                e.target.closest('.admin-panel')) {
+                e.preventDefault();
+            }
+        });
         
-        // Enhanced typing effects
-        function addTypingEffects() {
+        // Security: Clear password field on page unload
+        window.addEventListener('beforeunload', () => {
+            document.getElementById('adminPassword').value = '';
+        });
+        
+        // Enhanced typing effects for admin mode
+        function addAdminTypingEffects() {
             const editableElements = document.querySelectorAll('.editable');
             editableElements.forEach(element => {
                 element.addEventListener('keydown', (e) => {
+                    if (!isAdminLoggedIn) {
+                        e.preventDefault();
+                        return false;
+                    }
+                    
                     if (e.key === 'Enter' && element.classList.contains('post-title')) {
                         e.preventDefault();
                         const nextElement = element.parentElement.querySelector('.post-content');
@@ -477,71 +990,59 @@
             });
         }
         
-        // Add glitch effect on focus
-        function addGlitchEffect() {
-            const editableElements = document.querySelectorAll('.editable');
-            editableElements.forEach(element => {
-                element.addEventListener('focus', () => {
-                    element.style.textShadow = '0 0 10px currentColor';
-                });
-                
-                element.addEventListener('blur', () => {
-                    element.style.textShadow = '';
+        // Visual feedback for admin actions
+        function addVisualFeedback() {
+            const adminElements = document.querySelectorAll('.admin-btn, .action-btn');
+            adminElements.forEach(element => {
+                element.addEventListener('click', (e) => {
+                    const ripple = document.createElement('div');
+                    ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: rgba(255, 255, 255, 0.6);
+                        transform: scale(0);
+                        animation: ripple 0.6s linear;
+                        pointer-events: none;
+                    `;
+                    
+                    const rect = element.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+                    
+                    element.style.position = 'relative';
+                    element.style.overflow = 'hidden';
+                    element.appendChild(ripple);
+                    
+                    setTimeout(() => ripple.remove(), 600);
                 });
             });
         }
         
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
-            setupAutoSave();
-            addTypingEffects();
-            addGlitchEffect();
-            loadContent();
-        });
-        
-        // Keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 'n') {
-                e.preventDefault();
-                addNewPost();
+        // Add CSS for ripple effect
+        const rippleStyle = document.createElement('style');
+        rippleStyle.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
             }
             
-            if (e.ctrlKey && e.key === 's') {
-                e.preventDefault();
-                saveContent();
-                
-                // Show save indicator
-                const indicator = document.createElement('div');
-                indicator.textContent = 'Saved!';
-                indicator.style.cssText = `
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    background: rgba(6, 255, 165, 0.2);
-                    color: #06ffa5;
-                    padding: 10px 20px;
-                    border-radius: 20px;
-                    border: 1px solid rgba(6, 255, 165, 0.3);
-                    z-index: 1000;
-                    animation: fadeInOut 2s ease-in-out;
-                `;
-                
-                document.body.appendChild(indicator);
-                setTimeout(() => indicator.remove(), 2000);
-            }
-        });
-        
-        // Add CSS animation for save indicator
-        const style = document.createElement('style');
-        style.textContent = `
             @keyframes fadeInOut {
-                0% { opacity: 0; transform: translateY(-10px); }
-                20%, 80% { opacity: 1; transform: translateY(0); }
-                100% { opacity: 0; transform: translateY(-10px); }
+                0% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+                20%, 80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+                100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
             }
         `;
-        document.head.appendChild(style);
+        document.head.appendChild(rippleStyle);
+        
+        // Initialize enhanced features
+        setTimeout(() => {
+            addAdminTypingEffects();
+            addVisualFeedback();
+        }, 1000);
     </script>
 </body>
 </html>
